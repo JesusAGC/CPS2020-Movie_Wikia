@@ -3,10 +3,13 @@ from api_interaction import api_searchs,database_searchs,database_workclass
 from abc import abstractmethod, ABCMeta
 import csv
 from classes import *
+
 api_s =api_searchs()
 db_s = database_searchs()
 db_w = database_workclass()
 
+not_found_actor = Actor('0','Not found','No data','No data','No data')
+not_found_movie = Movie('0','Not found','No data','No data')
 
 class data_getter_from_api(Data_Getter):
     def get_actor(self,_id):
@@ -22,7 +25,8 @@ class data_getter_from_api(Data_Getter):
         data = api_s.search_movie_by_id(_id)
         title = data.get('original_title')
         release_data = data.get('release_date')
-        movie_search = Movie(_id,title,release_data)
+        _overview = data.get('overview')
+        movie_search = Movie(_id,title,release_data,_overview)
         return movie_search
     
     def get_movie_by_title(self,_movie_query:str):
@@ -42,36 +46,42 @@ class data_getter_from_api(Data_Getter):
             
 class data_getter_from_database(Data_Getter):
     def get_actor(self,_id):
-        data = api_searchs.search_actor(_id)
-        name = data.get('name')
-        bio = data.get('biography')
-        birth = data.get('birthday')
-        death = data.get('deathday')
-        actor_search = Actor(_id,name,bio,birth,death)
+        actor_search = db_s.search_actor(_id)
         return actor_search
 
     def get_movie_by_id(self,_id):
-        data = api_searchs.search_movie_by_id(_id)
-        title = data.get('title')
-        r_d = data.get('release_date')
-        overw = data.get('overview')
-        movie_search = Movie(_id,title,r_d,overw)
+        movie_search = db_s.search_movie_by_id(_id)
         return movie_search
 
     def get_movie_by_title(self,_title):
-        movie_l = []
+        movie_l = db_s.search_movie_by_title(_title)
         return movie_l
+
+    def get_all_actors_from_db(self):
+        return db_s.get_all_actors()
+
+    def get_all_movies_from_db(self):
+        return db_s.get_all_movies()
 
 class database_interaction():
     def actor_insertion(self, _id:str):
         ac_tor = api_s.search_actor(_id)
-        print(f'Se insertara a {ac_tor.name}')
-        db_w.insert_actor(ac_tor)
+        name = ac_tor.get('name')
+        bio = ac_tor.get('biography')
+        birth = ac_tor.get('birthday')
+        death = ac_tor.get('deathday')
+        actor_search = Actor(_id,name,bio,birth,death)
+        print(f'Se insertara a {name}')
+        db_w.insert_actor(actor_search)
 
     def movie_insertion(self,_id:str):
         mo_vie = api_s.search_movie_by_id(_id)
-        print(f'Se insertara {mo_vie.name}')
-        db_w.insert_movie(mo_vie)
+        _title = mo_vie.get('title')
+        _date_of_release = mo_vie.get('release_date')
+        _overview= mo_vie.get('overview')
+        movie_search = Movie(_id,_title,_date_of_release,_overview)
+        print(f'Se insertara {movie_search.title}')
+        db_w.insert_movie(movie_search)
 
     def actor_update(self, _actor:Actor):
         db_w.update_actor(_actor)
@@ -86,7 +96,7 @@ class database_interaction():
         pass
 
     def movie_delete(self, _id:str):
-        db_w.delete_actor(_id)
+        db_w.delete_movie(_id)
         pass
 
     def api_to_db_actor(self,csv_file:str):
@@ -123,13 +133,9 @@ def load_ids(csv_path:str):
     return charac_list
 
 
-# def main():
-#     dga = data_getter_from_api()
-#     title = "Spider-Man"
-#     movies = dga.get_movie_by_title(title)
-#     for x in range(len(movies)):
-#         movies[x].show_info()
-#         print("\n")
+def main():
+    dgd = data_getter_from_database()
+    _mov = dgd.get_movie_by_id
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

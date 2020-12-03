@@ -21,11 +21,11 @@ class Actor(Entity):
         self.death_date = _death_date
     
     def show_info(self):
-        print(self.actor_id)
-        print(self.name+"\n")
-        print(self.biography+"\n")
-        print(self.birth_date)
-        print(self.death_date)
+        print("\n"+"ID: "+str(self.actor_id))
+        print("Nombre: "+str(self.name)+"\n")
+        print("Bio: "+str(self.biography)+"\n")
+        print("Fecha de nacimiento: "+str(self.birth_date))
+        print("Fecha de defunción: "+str(self.death_date)+"\n")
 
 class Movie(Entity):
     def __init__(self,_movie_id:str,_title : str,_date_of_release:str,_overview:str):
@@ -34,7 +34,7 @@ class Movie(Entity):
         self.date_of_release = _date_of_release
         self.overview = _overview
     def show_info(self):
-        print(self.movie_id)
-        print(self.title)
-        print(self.date_of_release)
-        print(self.overview)
+        print("\n"+"ID: "+str(self.movie_id))
+        print("Título: "+self.title)
+        print("Fecha de lanzamiento: "+self.date_of_release)
+        print("Descripción: "+str(self.overview)+"\n")
