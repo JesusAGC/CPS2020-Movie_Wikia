@@ -1,9 +1,9 @@
 language : python
 python: 
-  - 3.5
   - 3.6
   - 3.7
   - 3.8
+  - 3.9
 cache: pip
 install : "pip3 install requests"
 script: python3 test_unit_project.py
