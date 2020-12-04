@@ -5,5 +5,5 @@ python:
   - 3.7
   - 3.8
 cache: pip
-install : "pip install -r requirimets.txt"
+install : "pip install -r requiremets.txt"
 script: python test_unit_project.py
