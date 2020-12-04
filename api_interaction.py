@@ -132,7 +132,7 @@ class database_workclass():
                 print(f'El registro {_actor.actor_id} - {_actor.name} ya esta en la base de datos, no se inserto de nuevo\n')
             else:
                 print(f"Hubo un error al insertar el registro de: {_actor.name}, no se inserto en la BD\n")
-                print(e)
+                print(f'El error fue:\n{e}')
         pass
 
     def insert_movie(self,_movie:Movie):
@@ -147,6 +147,7 @@ class database_workclass():
                 print(f'El registro {_movie.movie_id} - {_movie.title} ya esta en la base de datos, no se inserto de nuevo\n')
             else:
                 print(f"Hubo un error al insertar el registro de: {_movie.title}, no se inserto en la BD\n")
+                print(f'El error fue:\n{e}')
         pass
 
     def update_actor(self,_actor:Actor):
@@ -171,7 +172,7 @@ class database_workclass():
             sql_connection.commit()
             print(f'Se elimino el actor con el ID: {_id}')
         except Exception as e:
-            print("Hubo un problema al borrar, probablemente el registro no existe, el error es:")
+            print("Hubo un problema al borrar, el error es:")
             print(e)
         pass
 
@@ -181,7 +182,7 @@ class database_workclass():
             sql_connection.commit()
             print(f'Se elimino la película con el ID: {_id}')
         except Exception as e:
-            print("Hubo un problema al borrar, probablemente el registro no existe, el error es:")
+            print("Hubo un problema al borrar, el error es:")
             print(e)
         pass
 

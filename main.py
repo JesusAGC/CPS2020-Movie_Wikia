@@ -1,4 +1,3 @@
-import comms_area
 from comms_area import *
 from classes import Actor, Movie
 

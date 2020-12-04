@@ -11,6 +11,8 @@ class Data_Getter(metaclass=ABCMeta):
         pass
     def get_movie(self):
         pass
+    def get_movie_by_title(self):
+        pass
 
 class Actor(Entity):
     def __init__(self,_actor_id:str, _name:str, _biography:str, _birth_date:str, _death_date:str):
