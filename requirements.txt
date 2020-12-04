@@ -1,0 +1,4 @@
+    # Dev
+    # Add any libraries that must first be installed (e.g. unittest)
+requests == 2.25.0
+pprint == 0.4.0
