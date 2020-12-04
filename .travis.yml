@@ -6,4 +6,4 @@ python:
   - 3.8
 cache: pip
 install : "pip install -r requirements.txt"
-script: python test_unit_project.py
+script: python3 test_unit_project.py

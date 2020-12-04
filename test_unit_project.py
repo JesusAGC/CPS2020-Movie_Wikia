@@ -20,7 +20,7 @@ class project_unit_test(unittest.TestCase):
 ################################ API Actor no existente ######################################
     mock_data = {'id':'0','name':'Not found','biography':'No data','birthday':'No data','deathday':'No data'}
     @patch('api_interaction.api_searchs.search_actor', return_value = mock_data)
-    def test_bring_actor_from_api(self, search_actor):
+    def test_bring_actor_from_api_not_exist(self, search_actor):
         person = data_getter_from_api.get_actor(self,0)
         set_1 = Actor(0,'Not found','No data','No data','No data')
         self.assertEqual(person.actor_id,set_1.actor_id)
@@ -40,9 +40,9 @@ class project_unit_test(unittest.TestCase):
         self.assertEqual(film.date_of_release,set_1.date_of_release)
         self.assertEqual(film.overview,set_1.overview)
 ########################### API Movie No existente ############################################3
- mock_data = {'id':'0', 'original_title':'no found','release_date':'no data','overview':'no data'}
+    mock_data = {'id':'0', 'original_title':'no found','release_date':'no data','overview':'no data'}
     @patch('api_interaction.api_searchs.search_movie_by_id',return_value = mock_data)
-    def test_bring_movie_from_api(self,search_movie_by_id):
+    def test_bring_movie_from_api_not_exist(self,search_movie_by_id):
         set_1 = Movie(0,'no found','no data','no data')
         film = data_getter_from_api.get_movie(self,0)
         self.assertEqual(film.movie_id,set_1.movie_id)
@@ -87,7 +87,7 @@ class project_unit_test(unittest.TestCase):
         self.assertEqual(film.title,set_1.title)
         self.assertEqual(film.date_of_release,set_1.date_of_release)
         self.assertEqual(film.overview,set_1.overview)
-
+########################### traer peliculas de BD ############################################################
     mock_data = [Movie(1,'Spider-Man','2002','Really cool movie'), Movie(2,'Scarface','1983','Retro movie')]
     @patch('api_interaction.database_searchs.search_movie_by_title', return_value = mock_data)
     def test_bring_movies_list_from_DB(self,search_movie_by_title):
@@ -98,7 +98,7 @@ class project_unit_test(unittest.TestCase):
             self.assertEqual(movie_list[x].title,sets[x].title)
             self.assertEqual(movie_list[x].date_of_release,sets[x].date_of_release)
             self.assertEqual(movie_list[x].overview,sets[x].overview)
-
+#################### traer Actores de BD ########################################
     mock_data = [Actor(1,'George Lucas','Creador de Star Wars','1944-05-14','None'), Actor(2,'Al Pacino','Finge ser Gangstre','1940-04-25','None')]
     @patch('api_interaction.database_searchs.get_all_actors', return_value = mock_data)
     def test_bring_all_actors_from_DB(self,get_all_actors):
@@ -110,10 +110,10 @@ class project_unit_test(unittest.TestCase):
             self.assertEqual(all_actors[x].biography, sets[x].biography)
             self.assertEqual(all_actors[x].birth_date, sets[x].birth_date)
             self.assertEqual(all_actors[x].death_date, sets[x].death_date)
-
+####################
     mock_data = [Movie(1,'Spider-Man','2002','Really cool movie'), Movie(2,'Scarface','1983','Retro movie')]
     @patch('api_interaction.database_searchs.get_all_movies', return_value = mock_data)
-    def test_bring_movies_list_from_DB(self,get_all_movies):
+    def test_bring_movies_list_from_DB_(self,get_all_movies):
         movie_list = data_getter_from_database.get_all_movies_from_db(self)
         sets = [Movie(1,'Spider-Man','2002','Really cool movie'), Movie(2,'Scarface','1983','Retro movie')]
         for x in range(len(movie_list)):
