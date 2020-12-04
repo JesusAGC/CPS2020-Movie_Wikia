@@ -5,6 +5,17 @@ from comms_area import *
 from classes import Actor,Movie
 
 class project_unit_test(unittest.TestCase):
+    def setUp(self):
+        database_interaction.actor_delete(self, 1)
+        database_interaction.actor_delete(self, 880)
+        database_interaction.actor_delete(self, 2219)
+        database_interaction.actor_delete(self, 1327)
+        database_interaction.movie_delete(self, 76341)
+        database_interaction.movie_delete(self, 28)
+        database_interaction.movie_delete(self, 238)
+        database_interaction.movie_delete(self, 105)
+        print(f'Se terminó setUp\n\n')
+        
 ########################## API Actor Existente ##############################################
     mock_data = {'id':'1','name':'George Lucas','biography':'Creador de Star Wars','birthday':'1944-05-14','deathday':'None'}
     @patch('api_interaction.api_searchs.search_actor', return_value = mock_data)
@@ -288,7 +299,7 @@ class project_unit_test(unittest.TestCase):
         self.assertEqual(film.title,set_1.title)
         self.assertEqual(film.date_of_release,set_1.date_of_release)
         self.assertEqual(film.overview,set_1.overview)
-        database_workclass.insert_movie(self,set_3)
+        database_workclass.delete_movie(self,set_3.movie_id)
 
 ############# Delete Actor BD #############################
     def test_delete_actor(self):

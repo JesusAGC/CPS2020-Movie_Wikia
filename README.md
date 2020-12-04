@@ -9,5 +9,8 @@ Repositorio del proyecto para ordinario de la materia Calidad y Pruebas de Softw
 
 ## Pasos para ejecutar el software:
 1. En el archivo config.json añade tu llave de api en el valor "api_key" (Si no tienes una, sigue estos pasos: https://developers.themoviedb.org/3/getting-started/introduction)
-2. Crea una base de datos en sqlite y corre los scripts para crear las tablas. Al terminar esto, añade la ruta de la base de datos al archivo config.json dentro del valor "database_route"
+2. Crea una base de datos en sqlite y corre los scripts para crear las tablas. Al terminar esto, añade la ruta de la base de datos al archivo config.json dentro del valor "database_route" o usar la que ya viene lista con el software(Solo cambiar la string de conexión a la que no es de tests).
 3. Corre el archivo main.py para ejecutar el software.
+
+## Diagrama de Base de Datos
+![Diagrama](DB_Diagram.jpeg)
